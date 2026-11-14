@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VidNavigator Status</title>
+<meta name="description" content="Live status of the VidNavigator API: every endpoint is tested end to end every hour.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #f8f9fc; --card: #ffffff; --ink: #282828; --muted: #6b7280; --line: #e7e8ee;
+    --ok: #16a34a; --ok-bg: #e9f8ef; --warn: #d97706; --warn-bg: #fff4de;
+    --bad: #dc2626; --bad-bg: #fdecec; --none: #d7d9e0; --none-bg: #f1f2f6;
+    --brand-a: #b439ff; --brand-b: #721aff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101116; --card: #191b22; --ink: #f1f2f6; --muted: #9aa0ad; --line: #2a2d38;
+      --ok: #34d17a; --ok-bg: #12301f; --warn: #f5a623; --warn-bg: #3a2a0c;
+      --bad: #f26b6b; --bad-bg: #3a1616; --none: #3a3e4b; --none-bg: #22252e;
+    }
+    .logo { filter: invert(1) hue-rotate(180deg); }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 28px 0 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo { height: 34px; width: auto; display: block; }
+  .brand span {
+    font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 999px; color: #fff;
+    background: linear-gradient(135deg, var(--brand-a), var(--brand-b));
+  }
+  nav { display: flex; gap: 18px; font-size: 14px; color: var(--muted); }
+  nav a { text-decoration: none; }
+  nav a:hover { color: var(--ink); text-decoration: underline; }
+
+  .banner {
+    display: flex; align-items: center; gap: 16px; padding: 22px 24px; border-radius: 16px;
+    background: var(--none-bg); border: 1px solid var(--line);
+  }
+  .banner .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--none); flex: none; }
+  .banner h1 { margin: 0; font-size: 22px; line-height: 1.25; font-weight: 650; }
+  .banner p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+  .banner.operational { background: var(--ok-bg); border-color: transparent; }
+  .banner.operational .dot { background: var(--ok); box-shadow: 0 0 0 5px color-mix(in srgb, var(--ok) 22%, transparent); }
+  .banner.checking { background: var(--warn-bg); border-color: transparent; }
+  .banner.checking .dot { background: var(--warn); }
+  .banner.partial_outage, .banner.outage { background: var(--bad-bg); border-color: transparent; }
+  .banner.partial_outage .dot, .banner.outage .dot { background: var(--bad); }
+
+  h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 36px 0 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .component { padding: 18px 20px; border-top: 1px solid var(--line); }
+  .component:first-child { border-top: 0; }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .name { font-weight: 600; font-size: 16px; }
+  .path { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--muted); margin-left: 8px; }
+  .state { font-size: 14px; font-weight: 600; white-space: nowrap; }
+  .state.operational { color: var(--ok); }
+  .state.checking { color: var(--warn); }
+  .state.partial_outage, .state.outage, .state.down { color: var(--bad); }
+
+  .days { display: grid; grid-template-columns: repeat(90, 1fr); gap: 2px; margin-top: 12px; height: 30px; }
+  .day { border-radius: 2px; background: var(--none); border: 0; padding: 0; cursor: default; min-width: 0; }
+  .day.operational { background: var(--ok); }
+  .day.checking { background: var(--warn); }
+  .day.down { background: var(--bad); }
+  .day:hover, .day:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .scale .old .short { display: none; }
+  @media (max-width: 640px) {
+    .days { grid-template-columns: repeat(45, 1fr); }
+    .day:nth-child(-n+45) { display: none; }
+    .scale .old .full { display: none; }
+    .scale .old .short { display: inline; }
+    nav { display: none; }
+  }
+
+  .platforms { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 12px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border-radius: 999px;
+    font-size: 13px; background: var(--none-bg); color: var(--ink);
+  }
+  .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--none); }
+  .chip.operational i { background: var(--ok); }
+  .chip.checking { background: var(--warn-bg); } .chip.checking i { background: var(--warn); }
+  .chip.down { background: var(--bad-bg); } .chip.down i { background: var(--bad); }
+
+  .incident { padding: 14px 20px; border-top: 1px solid var(--line); display: flex; gap: 12px; align-items: flex-start; }
+  .incident:first-child { border-top: 0; }
+  .incident i { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex: none; background: var(--warn); }
+  .incident.confirmed i { background: var(--bad); }
+  .incident.open i { box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 22%, transparent); }
+  .incident strong { font-weight: 600; }
+  .incident small { display: block; color: var(--muted); font-size: 13px; }
+  .empty { padding: 20px; color: var(--muted); }
+
+  #tip {
+    position: fixed; z-index: 10; pointer-events: none; display: none; max-width: 260px;
+    background: var(--ink); color: var(--bg); padding: 8px 10px; border-radius: 8px; font-size: 13px; line-height: 1.4;
+  }
+  #tip b { display: block; }
+  footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
+  footer p { margin: 0 0 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="https://vidnavigator.com">
+      <img class="logo" src="logo.svg" alt="VidNavigator">
+      <span>Status</span>
+    </a>
+    <nav>
+      <a href="https://docs.vidnavigator.com">API docs</a>
+      <a href="https://vidnavigator.com/contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="banner" class="banner" role="status" aria-live="polite">
+    <span class="dot"></span>
+    <div><h1 id="headline">Loading the latest checks…</h1><p id="subline"></p></div>
+  </section>
+
+  <h2>API endpoints</h2>
+  <section id="components" class="card"><div class="empty">Loading…</div></section>
+
+  <h2>Past incidents</h2>
+  <section id="incidents" class="card"><div class="empty">Loading…</div></section>
+
+  <footer>
+    <p><strong>How this is measured.</strong> Every hour, each endpoint is called end to end on real videos, on every platform listed. A call that fails is made again 5 minutes later; if it fails twice it is marked down and tested every 10 minutes until it passes.</p>
+    <p>Times are shown in your local time zone. Days are UTC days.</p>
+  </footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function () {
+  'use strict';
+  var DAY = 86400000, DAYS = 90, STALE_MINUTES = 75, REFRESH_MS = 60000;
+  var OVERALL = {
+    operational: 'All systems operational',
+    checking: 'Verifying a possible issue',
+    partial_outage: 'Some endpoints are down',
+    outage: 'Major outage'
+  };
+  var COMPONENT = { operational: 'Operational', checking: 'Verifying a failed check', partial_outage: 'Partial outage', outage: 'Down' };
+  var CHECK = { operational: 'Operational', checking: 'Verifying a failed check', down: 'Down' };
+  var $ = function (id) { return document.getElementById(id); };
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+  function ago(ms) {
+    var minutes = Math.max(0, Math.round(ms / 60000));
+    if (minutes < 1) return 'just now';
+    if (minutes < 60) return minutes + ' min ago';
+    var hours = Math.floor(minutes / 60);
+    if (hours < 48) return hours + ' h ' + (minutes % 60) + ' min ago';
+    return Math.floor(hours / 24) + ' days ago';
+  }
+  function duration(ms) {
+    var minutes = Math.max(1, Math.round(ms / 60000));
+    if (minutes < 60) return minutes + ' min';
+    var hours = Math.floor(minutes / 60);
+    if (hours < 48) return hours + ' h ' + (minutes % 60 ? (minutes % 60) + ' min' : '').trim();
+    return Math.round(hours / 24) + ' days';
+  }
+  // English like the rest of the page, in the reader's own time zone.
+  var clock = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZoneName: 'short' });
+  var dayName = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+
+  // What happened to one endpoint on one UTC day, from its incidents.
+  function daySummary(incidents, dayStart, now, since) {
+    var dayEnd = dayStart + DAY;
+    if (dayEnd <= since || dayStart > now) return { state: 'none', text: 'No data' };
+    var down = 0, confirmed = 0, brief = 0;
+    incidents.forEach(function (incident) {
+      var start = Date.parse(incident.started_at);
+      var end = incident.resolved_at ? Date.parse(incident.resolved_at) : now;
+      if (start >= dayEnd || end < dayStart) return;
+      if (incident.confirmed_at) {
+        confirmed += 1;
+        down = Math.max(down, Math.min(end, dayEnd) - Math.max(start, dayStart));
+      } else {
+        brief += 1;
+      }
+    });
+    if (confirmed) return { state: 'down', text: confirmed + (confirmed > 1 ? ' outages' : ' outage') + ', longest ' + duration(down) };
+    if (brief) return { state: 'checking', text: brief + (brief > 1 ? ' brief failures' : ' brief failure') + ' (passed on the next check)' };
+    return { state: 'operational', text: 'No failure' };
+  }
+
+  // Share of the time its checks were not down, since monitoring started (90 days at most).
+  function uptime(component, incidents, now, since) {
+    var from = Math.max(since, now - DAYS * DAY);
+    var span = (now - from) * component.checks.length;
+    if (span <= 0) return null;
+    var down = 0;
+    incidents.forEach(function (incident) {
+      if (!incident.confirmed_at) return;
+      var start = Math.max(Date.parse(incident.started_at), from);
+      var end = Math.min(incident.resolved_at ? Date.parse(incident.resolved_at) : now, now);
+      if (end > start) down += end - start;
+    });
+    var pct = 100 * (1 - down / span);
+    return (pct >= 99.995 ? '100' : pct.toFixed(2)) + '% uptime';
+  }
+
+  function renderComponents(status, now) {
+    var box = $('components');
+    box.textContent = '';
+    var since = Date.parse(status.monitoring_since) || now;
+    var today = Math.floor(now / DAY) * DAY;
+    (status.components || []).forEach(function (component) {
+      var own = (status.incidents || []).filter(function (i) { return i.component === component.id; });
+      var node = el('div', 'component');
+      var row = el('div', 'row');
+      var title = el('div');
+      title.appendChild(el('span', 'name', component.name));
+      title.appendChild(el('span', 'path', component.path));
+      row.appendChild(title);
+      row.appendChild(el('span', 'state ' + component.state, COMPONENT[component.state] || component.state));
+      node.appendChild(row);
+
+      var days = el('div', 'days');
+      for (var back = DAYS - 1; back >= 0; back--) {
+        var dayStart = today - back * DAY;
+        var info = daySummary(own, dayStart, now, since);
+        var cell = el('button', 'day ' + info.state);
+        cell.type = 'button';
+        cell.dataset.tip = dayName.format(new Date(dayStart)) + '|' + info.text;
+        cell.setAttribute('aria-label', dayName.format(new Date(dayStart)) + ': ' + info.text);
+        days.appendChild(cell);
+      }
+      node.appendChild(days);
+      var scale = el('div', 'scale');
+      var old = el('span', 'old');
+      old.appendChild(el('span', 'full', DAYS + ' days ago'));
+      old.appendChild(el('span', 'short', (DAYS / 2) + ' days ago'));
+      scale.appendChild(old);
+      scale.appendChild(el('span', null, uptime(component, own, now, since) || ''));
+      scale.appendChild(el('span', null, 'Today'));
+      node.appendChild(scale);
+
+      if (component.checks.length > 1) {
+        var platforms = el('div', 'platforms');
+        component.checks.forEach(function (check) {
+          var chip = el('span', 'chip ' + check.state);
+          chip.appendChild(el('i'));
+          chip.appendChild(document.createTextNode(check.name));
+          chip.title = check.name + ': ' + (CHECK[check.state] || check.state);
+          platforms.appendChild(chip);
+        });
+        node.appendChild(platforms);
+      }
+      box.appendChild(node);
+    });
+    if (!box.children.length) box.appendChild(el('div', 'empty', 'No endpoint has been checked yet.'));
+  }
+
+  function renderIncidents(status, now) {
+    var box = $('incidents');
+    box.textContent = '';
+    var labels = {};
+    (status.components || []).forEach(function (component) {
+      component.checks.forEach(function (check) {
+        labels[check.id] = { endpoint: component.name, platform: component.checks.length > 1 ? check.name : null };
+      });
+    });
+    // Checks that failed in the same run are one incident: one line, not one per platform.
+    var groups = {}, order = [];
+    (status.incidents || []).forEach(function (incident) {
+      var key = incident.started_at + (incident.confirmed_at ? '|down' : '|brief');
+      if (!groups[key]) { groups[key] = []; order.push(key); }
+      groups[key].push(incident);
+    });
+    order.sort(function (a, b) { return Date.parse(groups[b][0].started_at) - Date.parse(groups[a][0].started_at); });
+    order.slice(0, 25).forEach(function (key) {
+      var members = groups[key];
+      var start = Date.parse(members[0].started_at);
+      var confirmed = !!members[0].confirmed_at;
+      var open = members.some(function (i) { return !i.resolved_at; });
+      var end = Math.max.apply(null, members.map(function (i) { return i.resolved_at ? Date.parse(i.resolved_at) : now; }));
+      var endpoints = [], platforms = {};
+      members.forEach(function (incident) {
+        var label = labels[incident.check] || { endpoint: incident.check, platform: null };
+        if (!platforms[label.endpoint]) { platforms[label.endpoint] = []; endpoints.push(label.endpoint); }
+        if (label.platform) platforms[label.endpoint].push(label.platform);
+      });
+      var what = endpoints.map(function (name) {
+        return platforms[name].length ? name + ' (' + platforms[name].join(', ') + ')' : name;
+      }).join(' · ');
+      var node = el('div', 'incident' + (confirmed ? ' confirmed' : '') + (open ? ' open' : ''));
+      node.appendChild(el('i'));
+      var body = el('div');
+      body.appendChild(el('strong', null, what));
+      var kind = confirmed ? 'Down' : (open ? 'Failed once, being verified' : 'One failed check, passed on the next');
+      var when = clock.format(new Date(start));
+      body.appendChild(el('small', null, kind + ' · ' + when + ' · ' + (open
+        ? 'ongoing for ' + duration(now - start)
+        : (confirmed ? 'back after ' : 'lasted ') + duration(end - start))));
+      node.appendChild(body);
+      box.appendChild(node);
+    });
+    if (!order.length) box.appendChild(el('div', 'empty', 'No incident in the last ' + DAYS + ' days.'));
+  }
+
+  function render(status) {
+    var now = Date.now();
+    var updated = Date.parse(status.updated_at);
+    var stale = !updated || now - updated > STALE_MINUTES * 60000;
+    var banner = $('banner');
+    if (stale) {
+      banner.className = 'banner';
+      $('headline').textContent = 'Monitoring data is delayed';
+      $('subline').textContent = 'The last check was ' + ago(now - updated) + '. The states below may be out of date.';
+    } else {
+      banner.className = 'banner ' + status.overall;
+      $('headline').textContent = OVERALL[status.overall] || status.overall;
+      $('subline').textContent = 'Last check ' + ago(now - updated) + '. Every endpoint is tested each hour.';
+    }
+    document.title = (stale ? 'Delayed' : (OVERALL[status.overall] || 'Status')) + ' · VidNavigator Status';
+    renderComponents(status, now);
+    renderIncidents(status, now);
+  }
+
+  function unavailable() {
+    $('banner').className = 'banner';
+    $('headline').textContent = 'Status data is unavailable';
+    $('subline').textContent = 'The status file could not be loaded. Please retry in a few minutes.';
+    $('components').innerHTML = '<div class="empty">No data.</div>';
+    $('incidents').innerHTML = '<div class="empty">No data.</div>';
+  }
+
+  var last = null;
+  function load() {
+    fetch('status.json?t=' + Math.floor(Date.now() / REFRESH_MS), { cache: 'no-store' })
+      .then(function (response) { if (!response.ok) throw new Error(response.status); return response.json(); })
+      .then(function (status) { last = status; render(status); })
+      .catch(function () { if (last) render(last); else unavailable(); });
+  }
+
+  var tip = $('tip');
+  function showTip(target) {
+    var parts = (target.dataset.tip || '').split('|');
+    tip.textContent = '';
+    tip.appendChild(el('b', null, parts[0]));
+    tip.appendChild(document.createTextNode(parts[1] || ''));
+    tip.style.display = 'block';
+    var box = target.getBoundingClientRect();
+    var left = Math.min(window.innerWidth - tip.offsetWidth - 8, Math.max(8, box.left + box.width / 2 - tip.offsetWidth / 2));
+    tip.style.left = left + 'px';
+    tip.style.top = Math.max(8, box.top - tip.offsetHeight - 8) + 'px';
+  }
+  ['mouseover', 'focusin'].forEach(function (name) {
+    document.addEventListener(name, function (event) {
+      if (event.target.classList && event.target.classList.contains('day')) showTip(event.target);
+    });
+  });
+  ['mouseout', 'focusout', 'scroll'].forEach(function (name) {
+    document.addEventListener(name, function () { tip.style.display = 'none'; }, true);
+  });
+
+  load();
+  setInterval(load, REFRESH_MS);
+})();
+</script>
+</body>
+</html>
