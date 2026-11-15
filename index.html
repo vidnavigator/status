@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VidNavigator Status</title>
-<meta name="description" content="Live status of the VidNavigator API: every endpoint is tested end to end every hour.">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="description" content="Live status of the VidNavigator API.">
+<link rel="icon" href="favicon.ico" sizes="any">
 <style>
   :root {
     --bg: #f8f9fc; --card: #ffffff; --ink: #282828; --muted: #6b7280; --line: #e7e8ee;
@@ -47,6 +47,7 @@
   }
   .banner .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--none); flex: none; }
   .banner h1 { margin: 0; font-size: 22px; line-height: 1.25; font-weight: 650; }
+  .banner p:empty { display: none; }
   .banner p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
   .banner.operational { background: var(--ok-bg); border-color: transparent; }
   .banner.operational .dot { background: var(--ok); box-shadow: 0 0 0 5px color-mix(in srgb, var(--ok) 22%, transparent); }
@@ -126,7 +127,7 @@
 
   <section id="banner" class="banner" role="status" aria-live="polite">
     <span class="dot"></span>
-    <div><h1 id="headline">Loading the latest checks…</h1><p id="subline"></p></div>
+    <div><h1 id="headline">Loading…</h1><p id="subline"></p></div>
   </section>
 
   <h2>API endpoints</h2>
@@ -136,7 +137,6 @@
   <section id="incidents" class="card"><div class="empty">Loading…</div></section>
 
   <footer>
-    <p><strong>How this is measured.</strong> Every hour, each endpoint is called end to end on real videos, on every platform listed. A call that fails is made again 5 minutes later; if it fails twice it is marked down and tested every 10 minutes until it passes.</p>
     <p>Times are shown in your local time zone. Days are UTC days.</p>
   </footer>
 </div>
@@ -148,12 +148,12 @@
   var DAY = 86400000, DAYS = 90, STALE_MINUTES = 75, REFRESH_MS = 60000;
   var OVERALL = {
     operational: 'All systems operational',
-    checking: 'Verifying a possible issue',
+    checking: 'Investigating a possible issue',
     partial_outage: 'Some endpoints are down',
     outage: 'Major outage'
   };
-  var COMPONENT = { operational: 'Operational', checking: 'Verifying a failed check', partial_outage: 'Partial outage', outage: 'Down' };
-  var CHECK = { operational: 'Operational', checking: 'Verifying a failed check', down: 'Down' };
+  var COMPONENT = { operational: 'Operational', checking: 'Investigating', partial_outage: 'Partial outage', outage: 'Down' };
+  var CHECK = { operational: 'Operational', checking: 'Investigating', down: 'Down' };
   var $ = function (id) { return document.getElementById(id); };
 
   function el(tag, className, text) {
@@ -198,11 +198,11 @@
       }
     });
     if (confirmed) return { state: 'down', text: confirmed + (confirmed > 1 ? ' outages' : ' outage') + ', longest ' + duration(down) };
-    if (brief) return { state: 'checking', text: brief + (brief > 1 ? ' brief failures' : ' brief failure') + ' (passed on the next check)' };
-    return { state: 'operational', text: 'No failure' };
+    if (brief) return { state: 'checking', text: brief + (brief > 1 ? ' brief disruptions' : ' brief disruption') };
+    return { state: 'operational', text: 'No incident' };
   }
 
-  // Share of the time its checks were not down, since monitoring started (90 days at most).
+  // Share of the time the endpoint was up, over the days shown.
   function uptime(component, incidents, now, since) {
     var from = Math.max(since, now - DAYS * DAY);
     var span = (now - from) * component.checks.length;
@@ -267,7 +267,7 @@
       }
       box.appendChild(node);
     });
-    if (!box.children.length) box.appendChild(el('div', 'empty', 'No endpoint has been checked yet.'));
+    if (!box.children.length) box.appendChild(el('div', 'empty', 'No data yet.'));
   }
 
   function renderIncidents(status, now) {
@@ -279,7 +279,7 @@
         labels[check.id] = { endpoint: component.name, platform: component.checks.length > 1 ? check.name : null };
       });
     });
-    // Checks that failed in the same run are one incident: one line, not one per platform.
+    // Entries that start together are one incident: one line, not one per platform.
     var groups = {}, order = [];
     (status.incidents || []).forEach(function (incident) {
       var key = incident.started_at + (incident.confirmed_at ? '|down' : '|brief');
@@ -306,7 +306,7 @@
       node.appendChild(el('i'));
       var body = el('div');
       body.appendChild(el('strong', null, what));
-      var kind = confirmed ? 'Down' : (open ? 'Failed once, being verified' : 'One failed check, passed on the next');
+      var kind = confirmed ? 'Outage' : (open ? 'Investigating' : 'Brief disruption');
       var when = clock.format(new Date(start));
       body.appendChild(el('small', null, kind + ' · ' + when + ' · ' + (open
         ? 'ongoing for ' + duration(now - start)
@@ -324,12 +324,12 @@
     var banner = $('banner');
     if (stale) {
       banner.className = 'banner';
-      $('headline').textContent = 'Monitoring data is delayed';
-      $('subline').textContent = 'The last check was ' + ago(now - updated) + '. The states below may be out of date.';
+      $('headline').textContent = 'Status information is delayed';
+      $('subline').textContent = 'Last update ' + ago(now - updated) + '. The states below may be out of date.';
     } else {
       banner.className = 'banner ' + status.overall;
       $('headline').textContent = OVERALL[status.overall] || status.overall;
-      $('subline').textContent = 'Last check ' + ago(now - updated) + '. Every endpoint is tested each hour.';
+      $('subline').textContent = '';
     }
     document.title = (stale ? 'Delayed' : (OVERALL[status.overall] || 'Status')) + ' · VidNavigator Status';
     renderComponents(status, now);
