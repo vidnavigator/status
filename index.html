@@ -68,19 +68,24 @@
   .state.checking { color: var(--warn); }
   .state.partial_outage, .state.outage, .state.down { color: var(--bad); }
 
-  .days { display: grid; grid-template-columns: repeat(90, 1fr); gap: 2px; margin-top: 12px; height: 30px; }
+  .heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 36px 0 12px; }
+  .heading h2 { margin: 0; }
+  .ranges { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--none-bg); border: 1px solid var(--line); }
+  .ranges button {
+    border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 13px; font-weight: 600;
+    padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .ranges button:hover { color: var(--ink); }
+  .ranges button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0, 0, 0, .12); }
+
+  .days { display: grid; gap: 2px; margin-top: 12px; height: 30px; }
   .day { border-radius: 2px; background: var(--none); border: 0; padding: 0; cursor: default; min-width: 0; }
   .day.operational { background: var(--ok); }
   .day.checking { background: var(--warn); }
   .day.down { background: var(--bad); }
   .day:hover, .day:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
   .scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
-  .scale .old .short { display: none; }
   @media (max-width: 640px) {
-    .days { grid-template-columns: repeat(45, 1fr); }
-    .day:nth-child(-n+45) { display: none; }
-    .scale .old .full { display: none; }
-    .scale .old .short { display: inline; }
     nav { display: none; }
   }
 
@@ -130,7 +135,10 @@
     <div><h1 id="headline">Loading…</h1><p id="subline"></p></div>
   </section>
 
-  <h2>API endpoints</h2>
+  <div class="heading">
+    <h2>API endpoints</h2>
+    <div id="ranges" class="ranges" role="group" aria-label="Period shown"></div>
+  </div>
   <section id="components" class="card"><div class="empty">Loading…</div></section>
 
   <h2>Past incidents</h2>
@@ -145,7 +153,18 @@
 <script>
 (function () {
   'use strict';
-  var DAY = 86400000, DAYS = 90, STALE_MINUTES = 75, REFRESH_MS = 60000;
+  var DAY = 86400000, STALE_MINUTES = 75, REFRESH_MS = 60000;
+  // Period shown and the number of segments it is cut into (half as many on a narrow screen).
+  // "All" is the whole history, up to 90 days, cut into the finest round segments that hold it.
+  var RANGES = [
+    { id: 'all', label: 'All' },
+    { id: '24h', label: '24 hours', ms: DAY, cells: 96 },
+    { id: '7d', label: '7 days', ms: 7 * DAY, cells: 84 },
+    { id: '30d', label: '30 days', ms: 30 * DAY, cells: 90 },
+    { id: '90d', label: '90 days', ms: 90 * DAY, cells: 90 }
+  ];
+  var SEGMENTS = [15 * 60000, 30 * 60000, 3600000, 2 * 3600000, 4 * 3600000, 8 * 3600000, 12 * 3600000, DAY];
+  var chosenRange = null;
   var OVERALL = {
     operational: 'All systems operational',
     checking: 'Investigating a possible issue',
@@ -180,19 +199,43 @@
   // English like the rest of the page, in the reader's own time zone.
   var clock = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZoneName: 'short' });
   var dayName = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  var hourMinute = new Intl.DateTimeFormat('en', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  var stamp = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
 
-  // What happened to one endpoint on one UTC day, from its incidents.
-  function daySummary(incidents, dayStart, now, since) {
-    var dayEnd = dayStart + DAY;
-    if (dayEnd <= since || dayStart > now) return { state: 'none', text: 'No data' };
+  // The period to show, as { id, label, ms, cells, cell, from }: the reader's choice, else the whole history.
+  function currentRange(now, since, narrow) {
+    var history = now - since;
+    var id = chosenRange || (history < 90 * DAY ? 'all' : '90d');
+    var range = RANGES.filter(function (item) { return item.id === id; })[0];
+    if (range.id !== 'all') {
+      var count = narrow ? range.cells / 2 : range.cells;
+      return { id: range.id, label: range.label, ms: range.ms, cells: count, cell: range.ms / count, from: range.label + ' ago' };
+    }
+    var cells = narrow ? 45 : 90;
+    var cell = SEGMENTS.filter(function (size) { return size * cells >= history; })[0] || DAY;
+    return { id: 'all', label: 'All', ms: cell * cells, cells: cells, cell: cell, from: 'Since ' + dayName.format(new Date(since)).replace(/, \d{4}$/, '') };
+  }
+
+  // The name of one segment: a UTC day (or days), or a span of local time.
+  function segmentLabel(start, end) {
+    if (end - start >= DAY) {
+      var last = end - DAY;
+      return last > start ? dayName.format(new Date(start)) + ' to ' + dayName.format(new Date(last)) : dayName.format(new Date(start));
+    }
+    return stamp.format(new Date(start)) + ' to ' + hourMinute.format(new Date(end));
+  }
+
+  // What happened to one endpoint during one segment, from its incidents.
+  function segmentSummary(incidents, start, end, now, since) {
+    if (end <= since || start > now) return { state: 'none', text: 'No data' };
     var down = 0, confirmed = 0, brief = 0;
     incidents.forEach(function (incident) {
-      var start = Date.parse(incident.started_at);
-      var end = incident.resolved_at ? Date.parse(incident.resolved_at) : now;
-      if (start >= dayEnd || end < dayStart) return;
+      var from = Date.parse(incident.started_at);
+      var to = incident.resolved_at ? Date.parse(incident.resolved_at) : now;
+      if (from >= end || to < start) return;
       if (incident.confirmed_at) {
         confirmed += 1;
-        down = Math.max(down, Math.min(end, dayEnd) - Math.max(start, dayStart));
+        down = Math.max(down, Math.min(to, end) - Math.max(from, start));
       } else {
         brief += 1;
       }
@@ -202,9 +245,9 @@
     return { state: 'operational', text: 'No incident' };
   }
 
-  // Share of the time the endpoint was up, over the days shown.
-  function uptime(component, incidents, now, since) {
-    var from = Math.max(since, now - DAYS * DAY);
+  // Share of the time the endpoint was up, over the period shown.
+  function uptime(component, incidents, now, since, range) {
+    var from = Math.max(since, now - range.ms);
     var span = (now - from) * component.checks.length;
     if (span <= 0) return null;
     var down = 0;
@@ -218,11 +261,32 @@
     return (pct >= 99.995 ? '100' : pct.toFixed(2)) + '% uptime';
   }
 
+  function renderRanges(active, history) {
+    var box = $('ranges');
+    box.textContent = '';
+    RANGES.forEach(function (range) {
+      // Past 90 days of history, "All" and "90 days" are the same view.
+      if (range.id === 'all' && history >= 90 * DAY) return;
+      var button = el('button', null, range.label);
+      button.type = 'button';
+      button.setAttribute('aria-pressed', range.id === active.id ? 'true' : 'false');
+      button.addEventListener('click', function () {
+        chosenRange = range.id;
+        if (last) render(last);
+      });
+      box.appendChild(button);
+    });
+  }
+
   function renderComponents(status, now) {
     var box = $('components');
     box.textContent = '';
     var since = Date.parse(status.monitoring_since) || now;
-    var today = Math.floor(now / DAY) * DAY;
+    var range = currentRange(now, since, window.matchMedia('(max-width: 640px)').matches);
+    var cells = range.cells, cell = range.cell;
+    // Segments start on round times (a UTC day, an even hour, a quarter of an hour); the last one holds now.
+    var first = Math.ceil(now / cell) * cell - cells * cell;
+    renderRanges(range, now - since);
     (status.components || []).forEach(function (component) {
       var own = (status.incidents || []).filter(function (i) { return i.component === component.id; });
       var node = el('div', 'component');
@@ -235,23 +299,22 @@
       node.appendChild(row);
 
       var days = el('div', 'days');
-      for (var back = DAYS - 1; back >= 0; back--) {
-        var dayStart = today - back * DAY;
-        var info = daySummary(own, dayStart, now, since);
-        var cell = el('button', 'day ' + info.state);
-        cell.type = 'button';
-        cell.dataset.tip = dayName.format(new Date(dayStart)) + '|' + info.text;
-        cell.setAttribute('aria-label', dayName.format(new Date(dayStart)) + ': ' + info.text);
-        days.appendChild(cell);
+      days.style.gridTemplateColumns = 'repeat(' + cells + ', 1fr)';
+      for (var index = 0; index < cells; index++) {
+        var start = first + index * cell;
+        var info = segmentSummary(own, start, start + cell, now, since);
+        var label = segmentLabel(start, start + cell);
+        var segment = el('button', 'day ' + info.state);
+        segment.type = 'button';
+        segment.dataset.tip = label + '|' + info.text;
+        segment.setAttribute('aria-label', label + ': ' + info.text);
+        days.appendChild(segment);
       }
       node.appendChild(days);
       var scale = el('div', 'scale');
-      var old = el('span', 'old');
-      old.appendChild(el('span', 'full', DAYS + ' days ago'));
-      old.appendChild(el('span', 'short', (DAYS / 2) + ' days ago'));
-      scale.appendChild(old);
-      scale.appendChild(el('span', null, uptime(component, own, now, since) || ''));
-      scale.appendChild(el('span', null, 'Today'));
+      scale.appendChild(el('span', null, range.from));
+      scale.appendChild(el('span', null, uptime(component, own, now, since, range) || ''));
+      scale.appendChild(el('span', null, 'Now'));
       node.appendChild(scale);
 
       if (component.checks.length > 1) {
@@ -310,7 +373,7 @@
       var when = clock.format(new Date(start));
       body.appendChild(el('small', null, kind + ' · ' + when + ' · ' + (open
         ? 'ongoing for ' + duration(now - start)
-        : (confirmed ? 'back after ' : 'lasted ') + duration(end - start))));
+        : (confirmed ? 'back after ' : 'resolved within ') + duration(end - start))));
       node.appendChild(body);
       box.appendChild(node);
     });
