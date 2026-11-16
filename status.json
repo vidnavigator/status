@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-16T11:01:04Z",
+  "updated_at": "2026-11-16T11:06:20Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
@@ -80,8 +80,8 @@
       "id": "transcribe",
       "name": "Transcription",
       "path": "POST /v1/transcribe",
-      "state": "checking",
-      "since": "2026-11-16T11:01:04Z",
+      "state": "operational",
+      "since": "2026-11-16T11:06:20Z",
       "checks": [
         {
           "id": "transcribe:tiktok",
@@ -128,9 +128,9 @@
         {
           "id": "transcribe:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-16T11:01:04Z",
-          "last_checked_at": "2026-11-16T11:01:04Z"
+          "state": "operational",
+          "since": "2026-11-16T11:06:20Z",
+          "last_checked_at": "2026-11-16T11:06:20Z"
         },
         {
           "id": "transcribe:snapchat",
@@ -145,8 +145,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "checking",
-      "since": "2026-11-16T11:01:04Z",
+      "state": "operational",
+      "since": "2026-11-16T11:06:20Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -200,9 +200,9 @@
         {
           "id": "watch:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-16T11:01:04Z",
-          "last_checked_at": "2026-11-16T11:01:04Z"
+          "state": "operational",
+          "since": "2026-11-16T11:06:20Z",
+          "last_checked_at": "2026-11-16T11:06:20Z"
         },
         {
           "id": "watch:snapchat",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "checking",
-      "since": "2026-11-16T11:01:04Z",
+      "state": "operational",
+      "since": "2026-11-16T11:06:20Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -280,8 +280,8 @@
         {
           "id": "analyze:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-16T11:01:04Z",
+          "state": "operational",
+          "since": "2026-11-16T11:06:20Z",
           "last_checked_at": "2026-11-16T11:01:04Z"
         },
         {
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-16T11:01:04Z",
+      "state": "operational",
+      "since": "2026-11-16T11:06:20Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -359,8 +359,8 @@
         {
           "id": "extract:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-16T11:01:04Z",
+          "state": "operational",
+          "since": "2026-11-16T11:06:20Z",
           "last_checked_at": "2026-11-16T11:01:04Z"
         },
         {
@@ -600,7 +600,7 @@
       "check": "transcribe:dailymotion",
       "started_at": "2026-11-16T11:01:04Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-16T11:06:20Z",
       "affected": [
         "transcribe",
         "watch",
