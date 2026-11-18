@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-18T23:06:38Z",
+  "updated_at": "2026-11-18T23:16:53Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "partial_outage",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
@@ -80,8 +80,8 @@
       "id": "transcribe",
       "name": "Transcription",
       "path": "POST /v1/transcribe",
-      "state": "partial_outage",
-      "since": "2026-11-18T23:06:38Z",
+      "state": "operational",
+      "since": "2026-11-18T23:16:53Z",
       "checks": [
         {
           "id": "transcribe:tiktok",
@@ -114,9 +114,9 @@
         {
           "id": "transcribe:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-18T23:06:38Z",
-          "last_checked_at": "2026-11-18T23:06:38Z"
+          "state": "operational",
+          "since": "2026-11-18T23:16:53Z",
+          "last_checked_at": "2026-11-18T23:16:53Z"
         },
         {
           "id": "transcribe:instagram",
@@ -145,8 +145,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "partial_outage",
-      "since": "2026-11-18T23:06:38Z",
+      "state": "operational",
+      "since": "2026-11-18T23:16:53Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -186,9 +186,9 @@
         {
           "id": "watch:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-18T23:06:38Z",
-          "last_checked_at": "2026-11-18T23:06:38Z"
+          "state": "operational",
+          "since": "2026-11-18T23:16:53Z",
+          "last_checked_at": "2026-11-18T23:16:53Z"
         },
         {
           "id": "watch:instagram",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "partial_outage",
-      "since": "2026-11-18T23:06:38Z",
+      "state": "operational",
+      "since": "2026-11-18T23:16:53Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -266,8 +266,8 @@
         {
           "id": "analyze:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-18T23:06:38Z",
+          "state": "operational",
+          "since": "2026-11-18T23:16:53Z",
           "last_checked_at": "2026-11-18T23:06:38Z"
         },
         {
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "partial_outage",
-      "since": "2026-11-18T23:06:38Z",
+      "state": "operational",
+      "since": "2026-11-18T23:16:53Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -345,8 +345,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-18T23:06:38Z",
+          "state": "operational",
+          "since": "2026-11-18T23:16:53Z",
           "last_checked_at": "2026-11-18T23:06:38Z"
         },
         {
@@ -650,7 +650,7 @@
       "check": "transcribe:rumble",
       "started_at": "2026-11-18T23:01:04Z",
       "confirmed_at": "2026-11-18T23:06:38Z",
-      "resolved_at": null,
+      "resolved_at": "2026-11-18T23:16:53Z",
       "affected": [
         "transcribe",
         "watch",
