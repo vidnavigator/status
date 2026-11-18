@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-18T00:01:13Z",
+  "updated_at": "2026-11-18T00:06:25Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "checking",
-      "since": "2026-11-18T00:01:13Z",
+      "state": "operational",
+      "since": "2026-11-18T00:06:25Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -56,9 +56,9 @@
         {
           "id": "transcript:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-18T00:01:13Z",
-          "last_checked_at": "2026-11-18T00:01:13Z"
+          "state": "operational",
+          "since": "2026-11-18T00:06:25Z",
+          "last_checked_at": "2026-11-18T00:06:25Z"
         },
         {
           "id": "transcript:dailymotion",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "checking",
-      "since": "2026-11-18T00:01:13Z",
+      "state": "operational",
+      "since": "2026-11-18T00:06:25Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -266,8 +266,8 @@
         {
           "id": "analyze:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-18T00:01:13Z",
+          "state": "operational",
+          "since": "2026-11-18T00:06:25Z",
           "last_checked_at": "2026-11-18T00:01:13Z"
         },
         {
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-18T00:01:13Z",
+      "state": "operational",
+      "since": "2026-11-18T00:06:25Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -345,8 +345,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-18T00:01:13Z",
+          "state": "operational",
+          "since": "2026-11-18T00:06:25Z",
           "last_checked_at": "2026-11-18T00:01:13Z"
         },
         {
@@ -613,7 +613,7 @@
       "check": "transcript:rumble",
       "started_at": "2026-11-18T00:01:13Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-18T00:06:25Z",
       "affected": [
         "transcript",
         "analyze",
