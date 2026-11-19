@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-19T16:06:50Z",
+  "updated_at": "2026-11-19T16:17:01Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
   "overall": "partial_outage",
   "components": [
@@ -8,8 +8,8 @@
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "partial_outage",
-      "since": "2026-11-19T16:06:50Z",
+      "state": "operational",
+      "since": "2026-11-19T16:17:01Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -28,9 +28,9 @@
         {
           "id": "transcript:tiktok",
           "name": "TikTok",
-          "state": "down",
-          "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:06:50Z"
+          "state": "operational",
+          "since": "2026-11-19T16:17:01Z",
+          "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
           "id": "transcript:x",
@@ -88,7 +88,7 @@
           "name": "TikTok",
           "state": "down",
           "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:06:50Z"
+          "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
           "id": "transcribe:x",
@@ -160,7 +160,7 @@
           "name": "TikTok",
           "state": "down",
           "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:06:50Z"
+          "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
           "id": "watch:x",
@@ -240,7 +240,7 @@
           "name": "TikTok",
           "state": "down",
           "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:06:50Z"
+          "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
           "id": "analyze:x",
@@ -319,7 +319,7 @@
           "name": "TikTok",
           "state": "down",
           "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:06:50Z"
+          "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
           "id": "extract:x",
@@ -725,7 +725,7 @@
       "check": "transcript:tiktok",
       "started_at": "2026-11-19T16:01:35Z",
       "confirmed_at": "2026-11-19T16:06:50Z",
-      "resolved_at": null,
+      "resolved_at": "2026-11-19T16:17:01Z",
       "affected": [
         "transcript",
         "analyze",
