@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-19T16:17:01Z",
+  "updated_at": "2026-11-19T16:27:06Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "partial_outage",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
@@ -80,15 +80,15 @@
       "id": "transcribe",
       "name": "Transcription",
       "path": "POST /v1/transcribe",
-      "state": "partial_outage",
-      "since": "2026-11-19T16:06:50Z",
+      "state": "operational",
+      "since": "2026-11-19T16:27:06Z",
       "checks": [
         {
           "id": "transcribe:tiktok",
           "name": "TikTok",
-          "state": "down",
-          "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:17:01Z"
+          "state": "operational",
+          "since": "2026-11-19T16:27:06Z",
+          "last_checked_at": "2026-11-19T16:27:06Z"
         },
         {
           "id": "transcribe:x",
@@ -145,8 +145,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "partial_outage",
-      "since": "2026-11-19T16:06:50Z",
+      "state": "operational",
+      "since": "2026-11-19T16:27:06Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -158,9 +158,9 @@
         {
           "id": "watch:tiktok",
           "name": "TikTok",
-          "state": "down",
-          "since": "2026-11-19T16:06:50Z",
-          "last_checked_at": "2026-11-19T16:17:01Z"
+          "state": "operational",
+          "since": "2026-11-19T16:27:06Z",
+          "last_checked_at": "2026-11-19T16:27:06Z"
         },
         {
           "id": "watch:x",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "partial_outage",
-      "since": "2026-11-19T16:06:50Z",
+      "state": "operational",
+      "since": "2026-11-19T16:27:06Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -238,8 +238,8 @@
         {
           "id": "analyze:tiktok",
           "name": "TikTok",
-          "state": "down",
-          "since": "2026-11-19T16:06:50Z",
+          "state": "operational",
+          "since": "2026-11-19T16:27:06Z",
           "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "partial_outage",
-      "since": "2026-11-19T16:06:50Z",
+      "state": "operational",
+      "since": "2026-11-19T16:27:06Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -317,8 +317,8 @@
         {
           "id": "extract:tiktok",
           "name": "TikTok",
-          "state": "down",
-          "since": "2026-11-19T16:06:50Z",
+          "state": "operational",
+          "since": "2026-11-19T16:27:06Z",
           "last_checked_at": "2026-11-19T16:17:01Z"
         },
         {
@@ -737,7 +737,7 @@
       "check": "transcribe:tiktok",
       "started_at": "2026-11-19T16:01:35Z",
       "confirmed_at": "2026-11-19T16:06:50Z",
-      "resolved_at": null,
+      "resolved_at": "2026-11-19T16:27:06Z",
       "affected": [
         "transcribe",
         "watch",
