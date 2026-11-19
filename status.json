@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-19T06:06:16Z",
+  "updated_at": "2026-11-19T06:16:29Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "partial_outage",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "partial_outage",
-      "since": "2026-11-19T06:06:16Z",
+      "state": "operational",
+      "since": "2026-11-19T06:16:29Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -56,9 +56,9 @@
         {
           "id": "transcript:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-19T06:06:16Z",
-          "last_checked_at": "2026-11-19T06:06:16Z"
+          "state": "operational",
+          "since": "2026-11-19T06:16:29Z",
+          "last_checked_at": "2026-11-19T06:16:29Z"
         },
         {
           "id": "transcript:dailymotion",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "partial_outage",
-      "since": "2026-11-19T06:06:16Z",
+      "state": "operational",
+      "since": "2026-11-19T06:16:29Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -266,8 +266,8 @@
         {
           "id": "analyze:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-19T06:06:16Z",
+          "state": "operational",
+          "since": "2026-11-19T06:16:29Z",
           "last_checked_at": "2026-11-19T06:01:02Z"
         },
         {
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "partial_outage",
-      "since": "2026-11-19T06:06:16Z",
+      "state": "operational",
+      "since": "2026-11-19T06:16:29Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -345,8 +345,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "down",
-          "since": "2026-11-19T06:06:16Z",
+          "state": "operational",
+          "since": "2026-11-19T06:16:29Z",
           "last_checked_at": "2026-11-19T06:01:02Z"
         },
         {
@@ -663,7 +663,7 @@
       "check": "transcript:rumble",
       "started_at": "2026-11-19T06:01:02Z",
       "confirmed_at": "2026-11-19T06:06:16Z",
-      "resolved_at": null,
+      "resolved_at": "2026-11-19T06:16:29Z",
       "affected": [
         "transcript",
         "analyze",
