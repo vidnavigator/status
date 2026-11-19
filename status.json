@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-19T07:04:27Z",
+  "updated_at": "2026-11-19T07:13:02Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "partial_outage",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "checking",
-      "since": "2026-11-19T07:04:27Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T07:13:02Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -63,9 +63,9 @@
         {
           "id": "transcript:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-19T07:04:27Z",
-          "last_checked_at": "2026-11-19T07:04:27Z"
+          "state": "down",
+          "since": "2026-11-19T07:13:02Z",
+          "last_checked_at": "2026-11-19T07:13:02Z"
         },
         {
           "id": "transcript:snapchat",
@@ -80,8 +80,8 @@
       "id": "transcribe",
       "name": "Transcription",
       "path": "POST /v1/transcribe",
-      "state": "checking",
-      "since": "2026-11-19T07:04:27Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T07:13:02Z",
       "checks": [
         {
           "id": "transcribe:tiktok",
@@ -128,9 +128,9 @@
         {
           "id": "transcribe:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-19T07:04:27Z",
-          "last_checked_at": "2026-11-19T07:04:27Z"
+          "state": "down",
+          "since": "2026-11-19T07:13:02Z",
+          "last_checked_at": "2026-11-19T07:13:02Z"
         },
         {
           "id": "transcribe:snapchat",
@@ -145,8 +145,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "checking",
-      "since": "2026-11-19T07:04:27Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T07:13:02Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -200,9 +200,9 @@
         {
           "id": "watch:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-19T07:04:27Z",
-          "last_checked_at": "2026-11-19T07:04:27Z"
+          "state": "down",
+          "since": "2026-11-19T07:13:02Z",
+          "last_checked_at": "2026-11-19T07:13:02Z"
         },
         {
           "id": "watch:snapchat",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "checking",
-      "since": "2026-11-19T07:04:27Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T07:13:02Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -280,9 +280,9 @@
         {
           "id": "analyze:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-19T07:04:27Z",
-          "last_checked_at": "2026-11-19T07:04:27Z"
+          "state": "down",
+          "since": "2026-11-19T07:13:02Z",
+          "last_checked_at": "2026-11-19T07:13:02Z"
         },
         {
           "id": "analyze:snapchat",
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-19T07:04:27Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T07:13:02Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -359,9 +359,9 @@
         {
           "id": "extract:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-19T07:04:27Z",
-          "last_checked_at": "2026-11-19T07:04:27Z"
+          "state": "down",
+          "since": "2026-11-19T07:13:02Z",
+          "last_checked_at": "2026-11-19T07:13:02Z"
         },
         {
           "id": "extract:snapchat",
@@ -674,7 +674,7 @@
     {
       "check": "transcript:dailymotion",
       "started_at": "2026-11-19T07:04:27Z",
-      "confirmed_at": null,
+      "confirmed_at": "2026-11-19T07:13:02Z",
       "resolved_at": null,
       "affected": [
         "transcript",
@@ -686,7 +686,7 @@
     {
       "check": "transcribe:dailymotion",
       "started_at": "2026-11-19T07:04:27Z",
-      "confirmed_at": null,
+      "confirmed_at": "2026-11-19T07:13:02Z",
       "resolved_at": null,
       "affected": [
         "transcribe",
