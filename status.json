@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-19T06:01:02Z",
+  "updated_at": "2026-11-19T06:06:16Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "partial_outage",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "checking",
-      "since": "2026-11-19T06:01:02Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T06:06:16Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -56,9 +56,9 @@
         {
           "id": "transcript:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-19T06:01:02Z",
-          "last_checked_at": "2026-11-19T06:01:02Z"
+          "state": "down",
+          "since": "2026-11-19T06:06:16Z",
+          "last_checked_at": "2026-11-19T06:06:16Z"
         },
         {
           "id": "transcript:dailymotion",
@@ -218,8 +218,8 @@
       "id": "analyze",
       "name": "Video analysis",
       "path": "POST /v1/analyze/video",
-      "state": "checking",
-      "since": "2026-11-19T06:01:02Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T06:06:16Z",
       "checks": [
         {
           "id": "analyze:youtube",
@@ -266,8 +266,8 @@
         {
           "id": "analyze:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-19T06:01:02Z",
+          "state": "down",
+          "since": "2026-11-19T06:06:16Z",
           "last_checked_at": "2026-11-19T06:01:02Z"
         },
         {
@@ -297,8 +297,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-19T06:01:02Z",
+      "state": "partial_outage",
+      "since": "2026-11-19T06:06:16Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -345,8 +345,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-19T06:01:02Z",
+          "state": "down",
+          "since": "2026-11-19T06:06:16Z",
           "last_checked_at": "2026-11-19T06:01:02Z"
         },
         {
@@ -662,7 +662,7 @@
     {
       "check": "transcript:rumble",
       "started_at": "2026-11-19T06:01:02Z",
-      "confirmed_at": null,
+      "confirmed_at": "2026-11-19T06:06:16Z",
       "resolved_at": null,
       "affected": [
         "transcript",
