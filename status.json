@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-20T23:01:14Z",
+  "updated_at": "2026-11-20T23:06:24Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
   "overall": "partial_outage",
   "components": [
@@ -56,9 +56,9 @@
         {
           "id": "transcript:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-20T23:01:14Z",
-          "last_checked_at": "2026-11-20T23:01:14Z"
+          "state": "operational",
+          "since": "2026-11-20T23:06:24Z",
+          "last_checked_at": "2026-11-20T23:06:24Z"
         },
         {
           "id": "transcript:dailymotion",
@@ -72,7 +72,7 @@
           "name": "Snapchat",
           "state": "down",
           "since": "2026-11-20T15:06:11Z",
-          "last_checked_at": "2026-11-20T23:01:14Z"
+          "last_checked_at": "2026-11-20T23:06:24Z"
         }
       ]
     },
@@ -273,8 +273,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-20T23:01:14Z",
+          "state": "operational",
+          "since": "2026-11-20T23:06:24Z",
           "last_checked_at": "2026-11-20T23:01:14Z"
         },
         {
@@ -680,7 +680,7 @@
       "check": "transcript:rumble",
       "started_at": "2026-11-20T23:01:14Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-20T23:06:24Z",
       "affected": [
         "transcript",
         "extract"
