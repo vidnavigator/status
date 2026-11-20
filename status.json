@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-20T15:01:08Z",
+  "updated_at": "2026-11-20T15:06:11Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "partial_outage",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "checking",
-      "since": "2026-11-20T15:01:08Z",
+      "state": "partial_outage",
+      "since": "2026-11-20T15:06:11Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -70,9 +70,9 @@
         {
           "id": "transcript:snapchat",
           "name": "Snapchat",
-          "state": "checking",
-          "since": "2026-11-20T15:01:08Z",
-          "last_checked_at": "2026-11-20T15:01:08Z"
+          "state": "down",
+          "since": "2026-11-20T15:06:11Z",
+          "last_checked_at": "2026-11-20T15:06:11Z"
         }
       ]
     },
@@ -225,8 +225,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-20T15:01:08Z",
+      "state": "partial_outage",
+      "since": "2026-11-20T15:06:11Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -294,8 +294,8 @@
         {
           "id": "extract:snapchat",
           "name": "Snapchat",
-          "state": "checking",
-          "since": "2026-11-20T15:01:08Z",
+          "state": "down",
+          "since": "2026-11-20T15:06:11Z",
           "last_checked_at": "2026-11-20T15:01:08Z"
         }
       ]
@@ -668,7 +668,7 @@
     {
       "check": "transcript:snapchat",
       "started_at": "2026-11-20T15:01:08Z",
-      "confirmed_at": null,
+      "confirmed_at": "2026-11-20T15:06:11Z",
       "resolved_at": null,
       "affected": [
         "transcript",
