@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-21T16:01:13Z",
+  "updated_at": "2026-11-21T17:01:19Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "operational",
+  "overall": "checking",
   "components": [
     {
       "id": "transcript",
@@ -16,63 +16,63 @@
           "name": "YouTube",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:youtube_shorts",
           "name": "YouTube Shorts",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:tiktok",
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-19T16:17:01Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:x",
           "name": "X",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:facebook",
           "name": "Facebook",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:vimeo",
           "name": "Vimeo",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:rumble",
           "name": "Rumble",
           "state": "operational",
           "since": "2026-11-20T23:06:24Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:dailymotion",
           "name": "Dailymotion",
           "state": "operational",
           "since": "2026-11-19T13:09:25Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcript:snapchat",
           "name": "Snapchat",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -88,63 +88,63 @@
           "name": "YouTube",
           "state": "operational",
           "since": "2026-11-20T13:01:11Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:tiktok",
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-19T16:27:06Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:x",
           "name": "X",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:facebook",
           "name": "Facebook",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:vimeo",
           "name": "Vimeo",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:rumble",
           "name": "Rumble",
           "state": "operational",
           "since": "2026-11-21T00:06:22Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:instagram",
           "name": "Instagram",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:dailymotion",
           "name": "Dailymotion",
           "state": "operational",
           "since": "2026-11-19T13:09:25Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "transcribe:snapchat",
           "name": "Snapchat",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -160,63 +160,63 @@
           "name": "YouTube",
           "state": "operational",
           "since": "2026-11-15T14:01:02Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:tiktok",
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-19T16:27:06Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:x",
           "name": "X",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:facebook",
           "name": "Facebook",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:vimeo",
           "name": "Vimeo",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:rumble",
           "name": "Rumble",
           "state": "operational",
           "since": "2026-11-21T00:06:22Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:instagram",
           "name": "Instagram",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:dailymotion",
           "name": "Dailymotion",
           "state": "operational",
           "since": "2026-11-19T13:09:25Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "watch:snapchat",
           "name": "Snapchat",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ],
       "monitoring_since": "2026-11-15T14:01:02Z"
@@ -233,70 +233,70 @@
           "name": "YouTube",
           "state": "operational",
           "since": "2026-11-20T13:01:11Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:youtube_shorts",
           "name": "YouTube Shorts",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:tiktok",
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-19T16:27:06Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:x",
           "name": "X",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:facebook",
           "name": "Facebook",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:vimeo",
           "name": "Vimeo",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:rumble",
           "name": "Rumble",
           "state": "operational",
           "since": "2026-11-21T00:06:22Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:instagram",
           "name": "Instagram",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:dailymotion",
           "name": "Dailymotion",
           "state": "operational",
           "since": "2026-11-19T13:09:25Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         },
         {
           "id": "extract:snapchat",
           "name": "Snapchat",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -312,7 +312,7 @@
           "name": "YouTube",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -328,7 +328,7 @@
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -344,7 +344,7 @@
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-11T14:00:43Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -360,7 +360,7 @@
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -376,7 +376,7 @@
           "name": "TikTok",
           "state": "operational",
           "since": "2026-11-13T15:33:55Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     },
@@ -384,15 +384,15 @@
       "id": "tweet_statement",
       "name": "Tweet statement",
       "path": "POST /v1/tweet/statement",
-      "state": "operational",
-      "since": "2026-11-20T09:06:07Z",
+      "state": "checking",
+      "since": "2026-11-21T17:01:19Z",
       "checks": [
         {
           "id": "tweet_statement:x",
           "name": "X",
-          "state": "operational",
-          "since": "2026-11-20T09:06:07Z",
-          "last_checked_at": "2026-11-21T16:01:13Z"
+          "state": "checking",
+          "since": "2026-11-21T17:01:19Z",
+          "last_checked_at": "2026-11-21T17:01:19Z"
         }
       ]
     }
@@ -687,6 +687,16 @@
         "extract"
       ],
       "component": "transcribe"
+    },
+    {
+      "check": "tweet_statement:x",
+      "started_at": "2026-11-21T17:01:19Z",
+      "confirmed_at": null,
+      "resolved_at": null,
+      "affected": [
+        "tweet_statement"
+      ],
+      "component": "tweet_statement"
     }
   ]
 }
