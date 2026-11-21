@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-21T00:36:29Z",
+  "updated_at": "2026-11-21T00:46:32Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
   "overall": "partial_outage",
   "components": [
@@ -72,7 +72,7 @@
           "name": "Snapchat",
           "state": "down",
           "since": "2026-11-20T15:06:11Z",
-          "last_checked_at": "2026-11-21T00:36:29Z"
+          "last_checked_at": "2026-11-21T00:46:32Z"
         }
       ]
     },
