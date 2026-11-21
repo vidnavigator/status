@@ -11,13 +11,14 @@
     --bg: #f8f9fc; --card: #ffffff; --ink: #282828; --muted: #6b7280; --line: #e7e8ee;
     --ok: #16a34a; --ok-bg: #e9f8ef; --warn: #d97706; --warn-bg: #fff4de;
     --bad: #dc2626; --bad-bg: #fdecec; --none: #d7d9e0; --none-bg: #f1f2f6;
-    --brand-a: #b439ff; --brand-b: #721aff;
+    --brand-a: #b439ff; --brand-b: #721aff; --accent: #721aff;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #101116; --card: #191b22; --ink: #f1f2f6; --muted: #9aa0ad; --line: #2a2d38;
       --ok: #34d17a; --ok-bg: #12301f; --warn: #f5a623; --warn-bg: #3a2a0c;
       --bad: #f26b6b; --bad-bg: #3a1616; --none: #3a3e4b; --none-bg: #22252e;
+      --accent: #b98cff;
     }
     .logo { filter: invert(1) hue-rotate(180deg); }
   }
@@ -99,13 +100,53 @@
   .chip.checking { background: var(--warn-bg); } .chip.checking i { background: var(--warn); }
   .chip.down { background: var(--bad-bg); } .chip.down i { background: var(--bad); }
 
+  [hidden] { display: none !important; }
+  .tabs { display: flex; gap: 4px; margin-top: 28px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+  .tabs a {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; margin-bottom: -1px;
+    color: var(--muted); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap;
+    border-bottom: 2px solid transparent;
+  }
+  .tabs a:hover { color: var(--ink); }
+  .tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+  .count {
+    min-width: 22px; padding: 0 7px; border-radius: 999px; text-align: center;
+    font-size: 12px; line-height: 20px; background: var(--none-bg); color: var(--muted);
+  }
+  .more { font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .more:hover { text-decoration: underline; }
+
+  .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 24px 0 4px; }
+  .toolbar .count { background: transparent; padding: 0 0 0 2px; min-width: 0; }
+  .ranges button[aria-pressed="true"] .count { color: var(--ink); }
+  select {
+    font: inherit; font-size: 13px; font-weight: 600; color: var(--ink); background: var(--card);
+    border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer;
+  }
+  h3 { font-size: 15px; font-weight: 650; margin: 28px 0 10px; }
+
   .incident { padding: 14px 20px; border-top: 1px solid var(--line); display: flex; gap: 12px; align-items: flex-start; }
   .incident:first-child { border-top: 0; }
   .incident i { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex: none; background: var(--warn); }
   .incident.confirmed i { background: var(--bad); }
   .incident.open i { box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 22%, transparent); }
+  .incident .body { flex: 1; min-width: 0; }
   .incident strong { font-weight: 600; }
   .incident small { display: block; color: var(--muted); font-size: 13px; }
+  .incident time { flex: none; color: var(--muted); font-size: 13px; white-space: nowrap; padding-top: 1px; }
+  .badge { display: inline-block; padding: 0 8px; margin-right: 6px; border-radius: 999px; font-size: 12px; font-weight: 600; line-height: 20px; }
+  .badge.down { background: var(--bad-bg); color: var(--bad); }
+  .badge.brief { background: var(--warn-bg); color: var(--warn); }
+  @media (max-width: 640px) {
+    .incident { flex-wrap: wrap; row-gap: 2px; }
+    .incident time { order: 3; width: 100%; padding-left: 22px; padding-top: 0; }
+  }
+  .pager { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; color: var(--muted); font-size: 13px; }
+  .pager button {
+    font: inherit; font-size: 13px; font-weight: 600; color: var(--ink); background: var(--card);
+    border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  .pager button:disabled { color: var(--muted); cursor: default; opacity: .5; }
   .empty { padding: 20px; color: var(--muted); }
 
   #tip {
@@ -135,17 +176,41 @@
     <div><h1 id="headline">Loading…</h1><p id="subline"></p></div>
   </section>
 
-  <div class="heading">
-    <h2>API endpoints</h2>
-    <div id="ranges" class="ranges" role="group" aria-label="Period shown"></div>
-  </div>
-  <section id="components" class="card"><div class="empty">Loading…</div></section>
+  <nav class="tabs" aria-label="Status sections">
+    <a href="#overview" id="tab-overview">Overview</a>
+    <a href="#incidents" id="tab-history">Incident history <span id="history-count" class="count"></span></a>
+  </nav>
 
-  <h2>Past incidents</h2>
-  <section id="incidents" class="card"><div class="empty">Loading…</div></section>
+  <div id="overview-panel">
+    <div class="heading">
+      <h2>API endpoints</h2>
+      <div id="ranges" class="ranges" role="group" aria-label="Period shown"></div>
+    </div>
+    <section id="components" class="card"><div class="empty">Loading…</div></section>
+
+    <div class="heading">
+      <h2>Recent incidents</h2>
+      <a class="more" href="#incidents">View all incidents →</a>
+    </div>
+    <section id="recent" class="card"><div class="empty">Loading…</div></section>
+  </div>
+
+  <div id="history-panel" hidden>
+    <div class="toolbar">
+      <div id="kinds" class="ranges" role="group" aria-label="Kind of incident"></div>
+      <select id="endpoint" aria-label="Endpoint"></select>
+    </div>
+    <div id="history"><div class="empty">Loading…</div></div>
+    <div id="pager" class="pager" hidden>
+      <button type="button" id="newer">← Newer</button>
+      <span id="page"></span>
+      <button type="button" id="older">Older →</button>
+    </div>
+  </div>
 
   <footer>
     <p>Times are shown in your local time zone. Days are UTC days.</p>
+    <p id="retention" hidden>The history covers the last 90 days.</p>
   </footer>
 </div>
 <div id="tip" role="tooltip"></div>
@@ -173,6 +238,14 @@
   };
   var COMPONENT = { operational: 'Operational', checking: 'Investigating', partial_outage: 'Partial outage', outage: 'Down' };
   var CHECK = { operational: 'Operational', checking: 'Investigating', down: 'Down' };
+  var RECENT = 3, PAGE_SIZE = 10;
+  var KINDS = [
+    { id: 'all', label: 'All', test: function () { return true; } },
+    { id: 'down', label: 'Outages', test: function (group) { return group.confirmed; } },
+    { id: 'brief', label: 'Brief disruptions', test: function (group) { return !group.confirmed; } }
+  ];
+  // What the history tab shows; kept across the page's refreshes.
+  var view = { kind: 'all', endpoint: '', page: 0 };
   var $ = function (id) { return document.getElementById(id); };
 
   function el(tag, className, text) {
@@ -201,6 +274,7 @@
   var dayName = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
   var hourMinute = new Intl.DateTimeFormat('en', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
   var stamp = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  var monthName = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' });
 
   // The period to show, as { id, label, ms, cells, cell, from }: the reader's choice, else the whole history.
   function currentRange(now, since, narrow) {
@@ -349,58 +423,149 @@
     if (!box.children.length) box.appendChild(el('div', 'empty', 'No data yet.'));
   }
 
-  function renderIncidents(status, now) {
-    var box = $('incidents');
-    box.textContent = '';
-    var labels = {}, names = {};
+  // The incidents, newest first. Entries that start together are one incident: one line, not one per platform.
+  function incidentGroups(status, now) {
+    var labels = {};
     (status.components || []).forEach(function (component) {
-      names[component.id] = component.name;
       component.checks.forEach(function (check) {
         labels[check.id] = { endpoint: component.name, platform: component.checks.length > 1 ? check.name : null };
       });
     });
-    // Entries that start together are one incident: one line, not one per platform.
     var groups = {}, order = [];
     (status.incidents || []).forEach(function (incident) {
       var key = incident.started_at + (incident.confirmed_at ? '|down' : '|brief');
       if (!groups[key]) { groups[key] = []; order.push(key); }
       groups[key].push(incident);
     });
-    order.sort(function (a, b) { return Date.parse(groups[b][0].started_at) - Date.parse(groups[a][0].started_at); });
-    order.slice(0, 25).forEach(function (key) {
+    return order.map(function (key) {
       var members = groups[key];
-      var start = Date.parse(members[0].started_at);
-      var confirmed = !!members[0].confirmed_at;
-      var open = members.some(function (i) { return !i.resolved_at; });
-      var end = Math.max.apply(null, members.map(function (i) { return i.resolved_at ? Date.parse(i.resolved_at) : now; }));
-      var endpoints = [], platforms = {}, also = [];
+      var endpoints = [], platforms = {}, also = [], touched = {};
       members.forEach(function (incident) {
         var label = labels[incident.check] || { endpoint: incident.check, platform: null };
         if (!platforms[label.endpoint]) { platforms[label.endpoint] = []; endpoints.push(label.endpoint); }
-        if (label.platform) platforms[label.endpoint].push(label.platform);
+        if (label.platform && platforms[label.endpoint].indexOf(label.platform) === -1) platforms[label.endpoint].push(label.platform);
+        affected(incident).forEach(function (id) { touched[id] = true; });
       });
       // The other endpoints it showed on, in the order of the page.
       (status.components || []).forEach(function (component) {
         var hit = members.some(function (incident) { return affected(incident).indexOf(component.id) > 0; });
         if (hit && endpoints.indexOf(component.name) === -1) also.push(component.name);
       });
-      var what = endpoints.map(function (name) {
-        return platforms[name].length ? name + ' (' + platforms[name].join(', ') + ')' : name;
-      }).join(' · ');
-      var node = el('div', 'incident' + (confirmed ? ' confirmed' : '') + (open ? ' open' : ''));
-      node.appendChild(el('i'));
-      var body = el('div');
-      body.appendChild(el('strong', null, what));
-      var kind = confirmed ? 'Outage' : (open ? 'Investigating' : 'Brief disruption');
-      var when = clock.format(new Date(start));
-      body.appendChild(el('small', null, kind + ' · ' + when + ' · ' + (open
-        ? 'ongoing for ' + duration(now - start)
-        : (confirmed ? 'back after ' : 'resolved within ') + duration(end - start))));
-      if (also.length) body.appendChild(el('small', null, 'Also affected: ' + also.join(', ')));
-      node.appendChild(body);
-      box.appendChild(node);
+      return {
+        start: Date.parse(members[0].started_at),
+        end: Math.max.apply(null, members.map(function (i) { return i.resolved_at ? Date.parse(i.resolved_at) : now; })),
+        open: members.some(function (i) { return !i.resolved_at; }),
+        confirmed: !!members[0].confirmed_at,
+        title: endpoints.map(function (name) {
+          return platforms[name].length ? name + ' (' + platforms[name].join(', ') + ')' : name;
+        }).join(' · '),
+        also: also,
+        touched: touched
+      };
+    }).sort(function (a, b) { return b.start - a.start; });
+  }
+
+  function incidentNode(group, now) {
+    var node = el('div', 'incident' + (group.confirmed ? ' confirmed' : '') + (group.open ? ' open' : ''));
+    node.appendChild(el('i'));
+    var body = el('div', 'body');
+    body.appendChild(el('strong', null, group.title));
+    var meta = el('small');
+    meta.appendChild(el('span', 'badge ' + (group.confirmed ? 'down' : 'brief'),
+      group.confirmed ? 'Outage' : (group.open ? 'Investigating' : 'Brief disruption')));
+    meta.appendChild(document.createTextNode(group.open
+      ? 'Ongoing for ' + duration(now - group.start)
+      : (group.confirmed ? 'Back after ' : 'Resolved within ') + duration(group.end - group.start)));
+    body.appendChild(meta);
+    if (group.also.length) body.appendChild(el('small', null, 'Also affected: ' + group.also.join(', ')));
+    node.appendChild(body);
+    var when = el('time', null, clock.format(new Date(group.start)));
+    when.dateTime = new Date(group.start).toISOString();
+    node.appendChild(when);
+    return node;
+  }
+
+  // Overview: the latest few, the rest is in the history tab.
+  function renderRecent(groups, now) {
+    var box = $('recent');
+    box.textContent = '';
+    // An ongoing incident comes first, however old.
+    var ongoing = groups.filter(function (group) { return group.open; });
+    ongoing.concat(groups.filter(function (group) { return !group.open; })).slice(0, Math.max(RECENT, ongoing.length))
+      .forEach(function (group) { box.appendChild(incidentNode(group, now)); });
+    if (!groups.length) box.appendChild(el('div', 'empty', 'No incident recorded.'));
+  }
+
+  function renderKinds(groups) {
+    var box = $('kinds');
+    box.textContent = '';
+    KINDS.forEach(function (kind) {
+      var button = el('button', null, kind.label + ' ');
+      button.type = 'button';
+      button.appendChild(el('span', 'count', String(groups.filter(kind.test).length)));
+      button.setAttribute('aria-pressed', kind.id === view.kind ? 'true' : 'false');
+      button.addEventListener('click', function () { view.kind = kind.id; view.page = 0; if (last) render(last); });
+      box.appendChild(button);
     });
-    if (!order.length) box.appendChild(el('div', 'empty', 'No incident recorded.'));
+  }
+
+  function renderEndpoints(status) {
+    var select = $('endpoint');
+    select.textContent = '';
+    var all = el('option', null, 'All endpoints');
+    all.value = '';
+    select.appendChild(all);
+    (status.components || []).forEach(function (component) {
+      var option = el('option', null, component.name);
+      option.value = component.id;
+      select.appendChild(option);
+    });
+    if (!(status.components || []).some(function (c) { return c.id === view.endpoint; })) view.endpoint = '';
+    select.value = view.endpoint;
+  }
+
+  // History tab: filtered, one card per month, PAGE_SIZE incidents a page.
+  function renderHistory(status, groups, now) {
+    renderEndpoints(status);
+    var ofEndpoint = groups.filter(function (group) { return !view.endpoint || group.touched[view.endpoint]; });
+    renderKinds(ofEndpoint);
+    var kind = KINDS.filter(function (item) { return item.id === view.kind; })[0] || KINDS[0];
+    var shown = ofEndpoint.filter(kind.test);
+    var pages = Math.max(1, Math.ceil(shown.length / PAGE_SIZE));
+    view.page = Math.min(view.page, pages - 1);
+    var box = $('history');
+    box.textContent = '';
+    var card = null, month = null;
+    shown.slice(view.page * PAGE_SIZE, (view.page + 1) * PAGE_SIZE).forEach(function (group) {
+      var name = monthName.format(new Date(group.start));
+      if (name !== month) {
+        month = name;
+        box.appendChild(el('h3', null, name));
+        card = el('section', 'card');
+        box.appendChild(card);
+      }
+      card.appendChild(incidentNode(group, now));
+    });
+    if (!shown.length) {
+      var empty = el('section', 'card');
+      empty.style.marginTop = '20px';
+      empty.appendChild(el('div', 'empty', groups.length ? 'No incident matches these filters.' : 'No incident recorded.'));
+      box.appendChild(empty);
+    }
+    $('pager').hidden = pages < 2;
+    $('page').textContent = 'Page ' + (view.page + 1) + ' of ' + pages;
+    $('newer').disabled = view.page === 0;
+    $('older').disabled = view.page >= pages - 1;
+  }
+
+  // The tab in the address (#incidents), so a link opens the history directly.
+  function showTab() {
+    var onHistory = location.hash === '#incidents';
+    $('overview-panel').hidden = onHistory;
+    $('history-panel').hidden = !onHistory;
+    $('retention').hidden = !onHistory;
+    $('tab-overview').setAttribute('aria-current', onHistory ? 'false' : 'page');
+    $('tab-history').setAttribute('aria-current', onHistory ? 'page' : 'false');
   }
 
   function render(status) {
@@ -419,7 +584,10 @@
     }
     document.title = (stale ? 'Delayed' : (OVERALL[status.overall] || 'Status')) + ' · VidNavigator Status';
     renderComponents(status, now);
-    renderIncidents(status, now);
+    var groups = incidentGroups(status, now);
+    $('history-count').textContent = groups.length;
+    renderRecent(groups, now);
+    renderHistory(status, groups, now);
   }
 
   function unavailable() {
@@ -427,8 +595,28 @@
     $('headline').textContent = 'Status data is unavailable';
     $('subline').textContent = 'The status file could not be loaded. Please retry in a few minutes.';
     $('components').innerHTML = '<div class="empty">No data.</div>';
-    $('incidents').innerHTML = '<div class="empty">No data.</div>';
+    $('recent').innerHTML = '<div class="empty">No data.</div>';
+    $('history').innerHTML = '<section class="card"><div class="empty">No data.</div></section>';
   }
+
+  $('endpoint').addEventListener('change', function () {
+    view.endpoint = this.value;
+    view.page = 0;
+    if (last) render(last);
+  });
+  function turn(step) {
+    view.page += step;
+    if (last) render(last);
+    $('tab-history').scrollIntoView({ block: 'start' });
+  }
+  $('newer').addEventListener('click', function () { turn(-1); });
+  $('older').addEventListener('click', function () { turn(1); });
+  window.addEventListener('hashchange', function () {
+    showTab();
+    // A link far down the page ("View all incidents") lands on the tabs, not below them.
+    if ($('tab-history').getBoundingClientRect().top < 0) $('tab-history').scrollIntoView({ block: 'start' });
+  });
+  showTab();
 
   var last = null;
   function load() {
