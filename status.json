@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-21T00:01:03Z",
+  "updated_at": "2026-11-21T00:06:22Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
   "overall": "partial_outage",
   "components": [
@@ -72,7 +72,7 @@
           "name": "Snapchat",
           "state": "down",
           "since": "2026-11-20T15:06:11Z",
-          "last_checked_at": "2026-11-21T00:01:03Z"
+          "last_checked_at": "2026-11-21T00:06:22Z"
         }
       ]
     },
@@ -80,8 +80,8 @@
       "id": "transcribe",
       "name": "Transcription",
       "path": "POST /v1/transcribe",
-      "state": "checking",
-      "since": "2026-11-21T00:01:03Z",
+      "state": "operational",
+      "since": "2026-11-21T00:06:22Z",
       "checks": [
         {
           "id": "transcribe:youtube",
@@ -121,9 +121,9 @@
         {
           "id": "transcribe:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-21T00:01:03Z",
-          "last_checked_at": "2026-11-21T00:01:03Z"
+          "state": "operational",
+          "since": "2026-11-21T00:06:22Z",
+          "last_checked_at": "2026-11-21T00:06:22Z"
         },
         {
           "id": "transcribe:instagram",
@@ -152,8 +152,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "checking",
-      "since": "2026-11-21T00:01:03Z",
+      "state": "operational",
+      "since": "2026-11-21T00:06:22Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -193,9 +193,9 @@
         {
           "id": "watch:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-21T00:01:03Z",
-          "last_checked_at": "2026-11-21T00:01:03Z"
+          "state": "operational",
+          "since": "2026-11-21T00:06:22Z",
+          "last_checked_at": "2026-11-21T00:06:22Z"
         },
         {
           "id": "watch:instagram",
@@ -273,8 +273,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-21T00:01:03Z",
+          "state": "operational",
+          "since": "2026-11-21T00:06:22Z",
           "last_checked_at": "2026-11-21T00:01:03Z"
         },
         {
@@ -691,7 +691,7 @@
       "check": "transcribe:rumble",
       "started_at": "2026-11-21T00:01:03Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-21T00:06:22Z",
       "affected": [
         "transcribe",
         "watch",
