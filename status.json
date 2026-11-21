@@ -9,7 +9,7 @@
       "name": "Transcript",
       "path": "POST /v1/transcript",
       "state": "operational",
-      "since": "2026-11-21T10:01:14Z",
+      "since": "2026-11-20T23:06:24Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -71,7 +71,7 @@
           "id": "transcript:snapchat",
           "name": "Snapchat",
           "state": "operational",
-          "since": "2026-11-21T10:01:14Z",
+          "since": "2026-11-11T14:00:43Z",
           "last_checked_at": "2026-11-21T10:01:14Z"
         }
       ]
@@ -226,7 +226,7 @@
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
       "state": "operational",
-      "since": "2026-11-21T10:01:14Z",
+      "since": "2026-11-21T00:06:22Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -295,7 +295,7 @@
           "id": "extract:snapchat",
           "name": "Snapchat",
           "state": "operational",
-          "since": "2026-11-21T10:01:14Z",
+          "since": "2026-11-11T14:00:43Z",
           "last_checked_at": "2026-11-21T10:01:14Z"
         }
       ]
@@ -664,17 +664,6 @@
         "tweet_statement"
       ],
       "component": "tweet_statement"
-    },
-    {
-      "check": "transcript:snapchat",
-      "started_at": "2026-11-20T15:01:08Z",
-      "confirmed_at": "2026-11-20T15:06:11Z",
-      "resolved_at": "2026-11-21T10:01:14Z",
-      "affected": [
-        "transcript",
-        "extract"
-      ],
-      "component": "transcript"
     },
     {
       "check": "transcript:rumble",
