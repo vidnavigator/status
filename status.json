@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-23T00:01:11Z",
+  "updated_at": "2026-11-23T00:06:20Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
@@ -384,15 +384,15 @@
       "id": "tweet_statement",
       "name": "Tweet statement",
       "path": "POST /v1/tweet/statement",
-      "state": "checking",
-      "since": "2026-11-23T00:01:11Z",
+      "state": "operational",
+      "since": "2026-11-23T00:06:20Z",
       "checks": [
         {
           "id": "tweet_statement:x",
           "name": "X",
-          "state": "checking",
-          "since": "2026-11-23T00:01:11Z",
-          "last_checked_at": "2026-11-23T00:01:11Z"
+          "state": "operational",
+          "since": "2026-11-23T00:06:20Z",
+          "last_checked_at": "2026-11-23T00:06:20Z"
         }
       ]
     }
@@ -743,7 +743,7 @@
       "check": "tweet_statement:x",
       "started_at": "2026-11-23T00:01:11Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-23T00:06:20Z",
       "affected": [
         "tweet_statement"
       ],
