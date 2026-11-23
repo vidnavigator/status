@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-23T07:01:03Z",
+  "updated_at": "2026-11-23T07:06:12Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "checking",
-      "since": "2026-11-23T07:01:03Z",
+      "state": "operational",
+      "since": "2026-11-23T07:06:12Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -56,9 +56,9 @@
         {
           "id": "transcript:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-23T07:01:03Z",
-          "last_checked_at": "2026-11-23T07:01:03Z"
+          "state": "operational",
+          "since": "2026-11-23T07:06:12Z",
+          "last_checked_at": "2026-11-23T07:06:12Z"
         },
         {
           "id": "transcript:dailymotion",
@@ -225,8 +225,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-23T07:01:03Z",
+      "state": "operational",
+      "since": "2026-11-23T07:06:12Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -273,8 +273,8 @@
         {
           "id": "extract:rumble",
           "name": "Rumble",
-          "state": "checking",
-          "since": "2026-11-23T07:01:03Z",
+          "state": "operational",
+          "since": "2026-11-23T07:06:12Z",
           "last_checked_at": "2026-11-23T07:01:03Z"
         },
         {
@@ -753,7 +753,7 @@
       "check": "transcript:rumble",
       "started_at": "2026-11-23T07:01:03Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-23T07:06:12Z",
       "affected": [
         "transcript",
         "extract"
