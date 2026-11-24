@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-24T03:01:10Z",
+  "updated_at": "2026-11-24T03:06:33Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
@@ -352,15 +352,15 @@
       "id": "tiktok_live_search",
       "name": "TikTok LIVE search",
       "path": "POST /v1/tiktok/live/search",
-      "state": "checking",
-      "since": "2026-11-24T03:01:10Z",
+      "state": "operational",
+      "since": "2026-11-24T03:06:33Z",
       "checks": [
         {
           "id": "tiktok_live_search:tiktok",
           "name": "TikTok",
-          "state": "checking",
-          "since": "2026-11-24T03:01:10Z",
-          "last_checked_at": "2026-11-24T03:01:10Z"
+          "state": "operational",
+          "since": "2026-11-24T03:06:33Z",
+          "last_checked_at": "2026-11-24T03:06:33Z"
         }
       ]
     },
@@ -368,15 +368,15 @@
       "id": "tiktok_live_room",
       "name": "TikTok LIVE room",
       "path": "POST /v1/tiktok/live/room",
-      "state": "checking",
-      "since": "2026-11-24T03:01:10Z",
+      "state": "operational",
+      "since": "2026-11-24T03:06:33Z",
       "checks": [
         {
           "id": "tiktok_live_room:tiktok",
           "name": "TikTok",
-          "state": "checking",
-          "since": "2026-11-24T03:01:10Z",
-          "last_checked_at": "2026-11-24T03:01:10Z"
+          "state": "operational",
+          "since": "2026-11-24T03:06:33Z",
+          "last_checked_at": "2026-11-24T03:06:33Z"
         }
       ]
     },
@@ -774,7 +774,7 @@
       "check": "tiktok_live_search:tiktok",
       "started_at": "2026-11-24T03:01:10Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-24T03:06:33Z",
       "affected": [
         "tiktok_live_search",
         "tiktok_live_room"
