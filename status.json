@@ -1,15 +1,15 @@
 {
   "version": 1,
-  "updated_at": "2026-11-24T20:01:03Z",
+  "updated_at": "2026-11-24T20:06:17Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "partial_outage",
   "components": [
     {
       "id": "transcript",
       "name": "Transcript",
       "path": "POST /v1/transcript",
-      "state": "checking",
-      "since": "2026-11-24T20:01:03Z",
+      "state": "partial_outage",
+      "since": "2026-11-24T20:06:17Z",
       "checks": [
         {
           "id": "transcript:youtube",
@@ -28,9 +28,9 @@
         {
           "id": "transcript:tiktok",
           "name": "TikTok",
-          "state": "checking",
-          "since": "2026-11-24T20:01:03Z",
-          "last_checked_at": "2026-11-24T20:01:03Z"
+          "state": "down",
+          "since": "2026-11-24T20:06:17Z",
+          "last_checked_at": "2026-11-24T20:06:17Z"
         },
         {
           "id": "transcript:x",
@@ -63,9 +63,9 @@
         {
           "id": "transcript:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-24T20:01:03Z",
-          "last_checked_at": "2026-11-24T20:01:03Z"
+          "state": "operational",
+          "since": "2026-11-24T20:06:17Z",
+          "last_checked_at": "2026-11-24T20:06:17Z"
         },
         {
           "id": "transcript:snapchat",
@@ -80,8 +80,8 @@
       "id": "transcribe",
       "name": "Transcription",
       "path": "POST /v1/transcribe",
-      "state": "checking",
-      "since": "2026-11-24T20:01:03Z",
+      "state": "partial_outage",
+      "since": "2026-11-24T20:06:17Z",
       "checks": [
         {
           "id": "transcribe:youtube",
@@ -93,9 +93,9 @@
         {
           "id": "transcribe:tiktok",
           "name": "TikTok",
-          "state": "checking",
-          "since": "2026-11-24T20:01:03Z",
-          "last_checked_at": "2026-11-24T20:01:03Z"
+          "state": "down",
+          "since": "2026-11-24T20:06:17Z",
+          "last_checked_at": "2026-11-24T20:06:17Z"
         },
         {
           "id": "transcribe:x",
@@ -152,8 +152,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "checking",
-      "since": "2026-11-24T20:01:03Z",
+      "state": "partial_outage",
+      "since": "2026-11-24T20:06:17Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -165,9 +165,9 @@
         {
           "id": "watch:tiktok",
           "name": "TikTok",
-          "state": "checking",
-          "since": "2026-11-24T20:01:03Z",
-          "last_checked_at": "2026-11-24T20:01:03Z"
+          "state": "down",
+          "since": "2026-11-24T20:06:17Z",
+          "last_checked_at": "2026-11-24T20:06:17Z"
         },
         {
           "id": "watch:x",
@@ -225,8 +225,8 @@
       "id": "extract",
       "name": "Data extraction",
       "path": "POST /v1/extract/video",
-      "state": "checking",
-      "since": "2026-11-24T20:01:03Z",
+      "state": "partial_outage",
+      "since": "2026-11-24T20:06:17Z",
       "checks": [
         {
           "id": "extract:youtube",
@@ -245,9 +245,9 @@
         {
           "id": "extract:tiktok",
           "name": "TikTok",
-          "state": "checking",
-          "since": "2026-11-24T20:01:03Z",
-          "last_checked_at": "2026-11-24T20:01:03Z"
+          "state": "down",
+          "since": "2026-11-24T20:06:17Z",
+          "last_checked_at": "2026-11-24T20:06:17Z"
         },
         {
           "id": "extract:x",
@@ -287,8 +287,8 @@
         {
           "id": "extract:dailymotion",
           "name": "Dailymotion",
-          "state": "checking",
-          "since": "2026-11-24T20:01:03Z",
+          "state": "operational",
+          "since": "2026-11-24T20:06:17Z",
           "last_checked_at": "2026-11-24T20:01:03Z"
         },
         {
@@ -784,7 +784,7 @@
     {
       "check": "transcript:tiktok",
       "started_at": "2026-11-24T20:01:03Z",
-      "confirmed_at": null,
+      "confirmed_at": "2026-11-24T20:06:17Z",
       "resolved_at": null,
       "affected": [
         "transcript",
@@ -795,7 +795,7 @@
     {
       "check": "transcribe:tiktok",
       "started_at": "2026-11-24T20:01:03Z",
-      "confirmed_at": null,
+      "confirmed_at": "2026-11-24T20:06:17Z",
       "resolved_at": null,
       "affected": [
         "transcribe",
@@ -808,7 +808,7 @@
       "check": "transcript:dailymotion",
       "started_at": "2026-11-24T20:01:03Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-24T20:06:17Z",
       "affected": [
         "transcript",
         "extract"
