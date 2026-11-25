@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updated_at": "2026-11-25T23:01:45Z",
+  "updated_at": "2026-11-25T23:06:57Z",
   "monitoring_since": "2026-11-11T14:00:43Z",
-  "overall": "checking",
+  "overall": "operational",
   "components": [
     {
       "id": "transcript",
@@ -152,8 +152,8 @@
       "id": "watch",
       "name": "Watch",
       "path": "POST /v1/watch",
-      "state": "checking",
-      "since": "2026-11-25T23:01:45Z",
+      "state": "operational",
+      "since": "2026-11-25T23:06:57Z",
       "checks": [
         {
           "id": "watch:youtube",
@@ -200,9 +200,9 @@
         {
           "id": "watch:instagram",
           "name": "Instagram",
-          "state": "checking",
-          "since": "2026-11-25T23:01:45Z",
-          "last_checked_at": "2026-11-25T23:01:45Z"
+          "state": "operational",
+          "since": "2026-11-25T23:06:57Z",
+          "last_checked_at": "2026-11-25T23:06:57Z"
         },
         {
           "id": "watch:dailymotion",
@@ -831,7 +831,7 @@
       "check": "watch:instagram",
       "started_at": "2026-11-25T23:01:45Z",
       "confirmed_at": null,
-      "resolved_at": null,
+      "resolved_at": "2026-11-25T23:06:57Z",
       "affected": [
         "watch"
       ],
